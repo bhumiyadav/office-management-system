@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>remove Employee</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Remove Employee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-     
-    </div>    
+    <div class="container mt-5">
+        <h1>Remove Employee</h1>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <label>Select Employees to Remove:</label>
+            <div class="form-check">
+                {% for emp in employees %}
+                    <input type="checkbox" class="form-check-input" name="emp_ids" value="{{ emp.id }}">
+                    <label class="form-check-label">{{ emp.first_name }} {{ emp.last_name }}</label><br>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-danger mt-3">Remove Selected Employees</button>
+        </form>
+        <a href="{% url 'emp_app:all_emp' %}" class="btn btn-secondary mt-3">Back to Employees</a>
+    </div>
 </body>
 </html>
+
+
+
+
+
